@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}About - File Upload and Analysis{% endblock %}
+
+{% block content %}
+    <h1>About This Application</h1>
+    <p class="subtitle">File Upload and Analysis Tool</p>
+    
+    <div class="info-box">
+        <h3 style="margin-bottom: 15px;">Purpose</h3>
+        <p style="line-height: 1.6;">
+            This application allows users to upload files and automatically analyzes them to provide 
+            useful information about the file's content, structure, and properties.
+        </p>
+    </div>
+    
+    <h2>Features</h2>
+    <div class="info-box">
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li><strong>File Type Detection:</strong> Automatically identifies file types and MIME types</li>
+            <li><strong>Size Analysis:</strong> Shows file size in human-readable format</li>
+            <li><strong>Text File Analysis:</strong> Counts lines, words, and characters</li>
+            <li><strong>CSV File Analysis:</strong> Identifies rows and columns</li>
+            <li><strong>JSON File Analysis:</strong> Validates JSON structure and shows metadata</li>
+            <li><strong>Content Preview:</strong> Displays preview of file content when applicable</li>
+            <li><strong>Secure Upload:</strong> Validates file types and sanitizes filenames</li>
+        </ul>
+    </div>
+    
+    <h2>Supported File Types</h2>
+    <div class="info-box">
+        <p style="line-height: 1.6;">
+            <strong>Text files:</strong> .txt<br>
+            <strong>Documents:</strong> .pdf, .doc, .docx<br>
+            <strong>Images:</strong> .png, .jpg, .jpeg, .gif<br>
+            <strong>Data files:</strong> .csv, .json, .xml
+        </p>
+    </div>
+    
+    <h2>Technical Details</h2>
+    <div class="info-box">
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Built with Python Flask framework</li>
+            <li>Maximum file size: 16 MB</li>
+            <li>Secure filename handling with Werkzeug</li>
+            <li>Responsive web interface</li>
+        </ul>
+    </div>
+    
+    <a href="{{ url_for('index') }}" class="back-link">← Back to Upload</a>
+{% endblock %}
