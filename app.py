@@ -52,12 +52,13 @@ def analyze_file(filepath, filename):
     analysis['extension'] = extension
     
     # Analyze content based on file type
-    if extension == 'txt' or mime_type and mime_type.startswith('text/'):
-        analysis.update(analyze_text_file(filepath))
-    elif extension in ['csv']:
+    # Check specific file types first before generic text
+    if extension in ['csv']:
         analysis.update(analyze_csv_file(filepath))
     elif extension in ['json']:
         analysis.update(analyze_json_file(filepath))
+    elif extension == 'txt' or mime_type and mime_type.startswith('text/'):
+        analysis.update(analyze_text_file(filepath))
     elif extension in ['png', 'jpg', 'jpeg', 'gif']:
         analysis['content_type'] = 'Image file'
     elif extension in ['pdf']:
