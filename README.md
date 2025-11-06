@@ -56,6 +56,21 @@ http://localhost:5000
 - Upload directory: `uploads/` (automatically created)
 - Allowed file extensions can be modified in `app.py`
 
+## Security Considerations
+
+⚠️ **Important**: This application is configured for development use:
+- Debug mode is enabled by default
+- The secret key is a development placeholder
+- The app binds to all network interfaces (0.0.0.0)
+
+**For production deployment:**
+1. Set `debug=False` in `app.py`
+2. Use a strong, randomly generated secret key from environment variables
+3. Configure the host and port appropriately for your deployment
+4. Use a production WSGI server (e.g., Gunicorn, uWSGI) instead of Flask's built-in server
+5. Implement proper authentication and authorization if needed
+6. Consider adding HTTPS/TLS support
+
 ## Project Structure
 
 ```
