@@ -110,6 +110,7 @@ You can modify the following settings in `app.py`:
 
 Environment variables:
 - `SECRET_KEY`: Flask secret key for session management (auto-generated if not set)
+- `FLASK_DEBUG`: Set to 'true' to enable debug mode (default: false for security)
 
 ### File Analysis Details
 
@@ -149,10 +150,13 @@ Environment variables:
 
 To run in development mode with debug enabled:
 ```bash
+export FLASK_DEBUG=true
 python app.py
 ```
 
-The application will reload automatically when you make changes to the code.
+With debug mode enabled, the application will reload automatically when you make changes to the code.
+
+**Note:** Debug mode should never be enabled in production as it can expose security vulnerabilities.
 
 ### License
 
