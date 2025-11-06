@@ -103,18 +103,25 @@ def analyze_text_file(filepath):
 
 def analyze_csv_file(filepath):
     """Analyze a CSV file."""
+    import csv
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+        with open(filepath, 'r', encoding='utf-8', newline='') as f:
+            # Use csv.reader for proper parsing
+            csv_reader = csv.reader(f)
+            rows = list(csv_reader)
         
-        row_count = len(lines)
-        column_count = len(lines[0].split(',')) if lines else 0
+        row_count = len(rows)
+        column_count = len(rows[0]) if rows else 0
+        
+        # Reconstruct preview from parsed data
+        preview_rows = rows[:10] if len(rows) > 10 else rows
+        preview = '\n'.join([','.join(row) for row in preview_rows])
         
         return {
             'content_type': 'CSV file',
             'row_count': row_count,
             'column_count': column_count,
-            'preview': ''.join(lines[:10]) if len(lines) > 10 else ''.join(lines)
+            'preview': preview
         }
     except Exception as e:
         return {
@@ -195,4 +202,5 @@ def about():
 
 
 if __name__ == '__main__':
+    # Development settings - for production, set debug=False and configure host appropriately
     app.run(debug=True, host='0.0.0.0', port=5000)
