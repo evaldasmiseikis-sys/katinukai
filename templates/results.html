@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Results{% endblock %}
+
+{% block content %}
+    <h1>Analysis Results</h1>
+    <p class="subtitle">File analysis completed successfully</p>
+    
+    <div class="analysis-results">
+        <h2>File Information</h2>
+        
+        <div class="result-item">
+            <span class="result-label">Filename:</span>
+            <span class="result-value">{{ analysis.filename }}</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">Upload Time:</span>
+            <span class="result-value">{{ analysis.upload_time }}</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">File Size:</span>
+            <span class="result-value">{{ analysis.file_size_readable }} ({{ analysis.file_size }} bytes)</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">File Extension:</span>
+            <span class="result-value">.{{ analysis.extension }}</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">MIME Type:</span>
+            <span class="result-value">{{ analysis.mime_type }}</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">Content Type:</span>
+            <span class="result-value">{{ analysis.content_type }}</span>
+        </div>
+        
+        {% if analysis.error %}
+        <div class="result-item" style="background: #fee; border-left: 4px solid #c33;">
+            <span class="result-label">Error:</span>
+            <span class="result-value">{{ analysis.error }}</span>
+        </div>
+        {% endif %}
+        
+        {% if analysis.line_count is defined %}
+        <h2>Text File Analysis</h2>
+        
+        <div class="result-item">
+            <span class="result-label">Line Count:</span>
+            <span class="result-value">{{ analysis.line_count }}</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">Word Count:</span>
+            <span class="result-value">{{ analysis.word_count }}</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">Character Count:</span>
+            <span class="result-value">{{ analysis.character_count }}</span>
+        </div>
+        {% endif %}
+        
+        {% if analysis.row_count is defined %}
+        <h2>CSV File Analysis</h2>
+        
+        <div class="result-item">
+            <span class="result-label">Row Count:</span>
+            <span class="result-value">{{ analysis.row_count }}</span>
+        </div>
+        
+        <div class="result-item">
+            <span class="result-label">Column Count:</span>
+            <span class="result-value">{{ analysis.column_count }}</span>
+        </div>
+        {% endif %}
+        
+        {% if analysis.valid_json is defined %}
+        <h2>JSON File Analysis</h2>
+        
+        <div class="result-item">
+            <span class="result-label">Valid JSON:</span>
+            <span class="result-value">{{ 'Yes' if analysis.valid_json else 'No' }}</span>
+        </div>
+        
+        {% if analysis.json_type %}
+        <div class="result-item">
+            <span class="result-label">JSON Type:</span>
+            <span class="result-value">{{ analysis.json_type }}</span>
+        </div>
+        {% endif %}
+        
+        {% if analysis.key_count is defined %}
+        <div class="result-item">
+            <span class="result-label">Key Count:</span>
+            <span class="result-value">{{ analysis.key_count }}</span>
+        </div>
+        {% endif %}
+        
+        {% if analysis.element_count is defined %}
+        <div class="result-item">
+            <span class="result-label">Element Count:</span>
+            <span class="result-value">{{ analysis.element_count }}</span>
+        </div>
+        {% endif %}
+        {% endif %}
+        
+        {% if analysis.preview %}
+        <h2>Content Preview</h2>
+        <div class="preview-box">{{ analysis.preview }}</div>
+        {% endif %}
+    </div>
+    
+    <a href="{{ url_for('index') }}" class="back-link">← Upload Another File</a>
+{% endblock %}
