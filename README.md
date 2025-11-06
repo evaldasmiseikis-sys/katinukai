@@ -38,12 +38,18 @@ pip install -r requirements.txt
 
 ### Usage
 
-1. Start the application:
+1. (Optional) Set environment variables:
+```bash
+export SECRET_KEY='your-secure-random-secret-key'
+```
+Note: If not set, a random key will be generated automatically.
+
+2. Start the application:
 ```bash
 python app.py
 ```
 
-2. Open your web browser and navigate to:
+3. Open your web browser and navigate to:
 ```
 http://localhost:5000
 ```
@@ -102,6 +108,9 @@ You can modify the following settings in `app.py`:
 - `UPLOAD_FOLDER`: Directory to store uploaded files (default: 'uploads')
 - `ALLOWED_EXTENSIONS`: Set of allowed file extensions
 
+Environment variables:
+- `SECRET_KEY`: Flask secret key for session management (auto-generated if not set)
+
 ### File Analysis Details
 
 #### Text Files (TXT, CSV, JSON, XML)
@@ -124,8 +133,10 @@ You can modify the following settings in `app.py`:
 - Files are validated against allowed extensions
 - Filenames are sanitized using `secure_filename()`
 - Maximum file size limit enforced
+- Secret key uses environment variable or generates random key
+- Uploaded files are automatically deleted after analysis
 - Consider adding authentication for production use
-- Uploaded files are stored locally (consider cleanup strategy)
+- Use a production WSGI server (like Gunicorn) for production deployment
 
 ### Technologies Used
 

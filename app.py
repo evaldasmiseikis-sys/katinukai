@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 import mimetypes
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-here'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', os.urandom(24).hex())
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
@@ -123,7 +123,7 @@ def upload_file():
     if not allowed_file(file.filename):
         return jsonify({'error': f'File type not allowed. Allowed types: {", ".join(ALLOWED_EXTENSIONS)}'}), 400
     
-    if file and allowed_file(file.filename):
+    if file:
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         
@@ -131,10 +131,12 @@ def upload_file():
         file.save(filepath)
         
         # Analyze the file
-        analysis_results = analyze_file(filepath, filename)
-        
-        # Optionally clean up the file after analysis
-        # os.remove(filepath)
+        try:
+            analysis_results = analyze_file(filepath, filename)
+        finally:
+            # Clean up the file after analysis
+            if os.path.exists(filepath):
+                os.remove(filepath)
         
         return jsonify({
             'success': True,
